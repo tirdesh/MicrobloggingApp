@@ -49,7 +49,7 @@ const addBlog = (blog, parent) => {
     authorDateDiv.className = "author-date";
 
     const authorDate = document.createElement("p");
-    authorDate.textContent = `${blog.author} | ${blog.date}`;
+    authorDate.textContent = `${blog.author} | Created at: ${blog.date}`;
 
     authorDateDiv.appendChild(authorDate);
 
@@ -83,6 +83,7 @@ const fetchBlogs = () => {
                 const blog = new Blog(item.title, item.content, item.author, item.date);
                 addBlog(blog, blogList);
             });
+            addUpdateButtonListeners();
         }
     });
     xhr.send();
@@ -143,3 +144,65 @@ const createEditableBlogCard = () => {
 };
 
 
+function addUpdateButtonListeners() {
+    blogList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('update-blog')) {
+            const updateButton = event.target;
+            const blogCard = updateButton.closest('.blog-card');
+
+            // Extract the blog details
+            const title = blogCard.querySelector('h2').textContent;
+            const authorDate = blogCard.querySelector('.author-date p').textContent.split(' | ');
+            const author = authorDate[0];
+            const content = blogCard.querySelector('.content p').textContent;
+
+            // Create an editable card with only the content and author fields editable
+            const editableCard = document.createElement('div');
+            editableCard.className = 'editable-blog-card';
+            editableCard.innerHTML = `
+                <h2>${title}</h2>
+                <input type="text" class="editable-author" placeholder="Edit Author" value="${author}">
+                <textarea class="editable-content" placeholder="Edit Content">${content}</textarea>
+                <button class="save-blog">Save</button>
+                <button class="cancel-blog">Cancel</button>
+            `;
+
+            // Replace the blog card with the editable card
+            blogCard.replaceWith(editableCard);
+
+            // Event listener for the "Save" button in the editable card
+            const saveButton = editableCard.querySelector('.save-blog');
+            saveButton.addEventListener('click', () => {
+                // Retrieve the updated values
+                const updatedAuthor = editableCard.querySelector('.editable-author').value;
+                const updatedContent = editableCard.querySelector('.editable-content').value;
+
+                // Create a new blog card with the updated values
+                const updatedBlogCard = document.createElement('article');
+                updatedBlogCard.className = 'blog-card';
+                updatedBlogCard.innerHTML = `
+                    <div class="title-update">
+                        <h2>${title}</h2>
+                        <button class="update-blog">Update</button>
+                    </div>
+                    <div class="author-date">
+                        <p>${updatedAuthor} | ${authorDate[1]}</p>
+                    </div>
+                    <div class="content">
+                        <p>${updatedContent}</p>
+                    </div>
+                `;
+
+                // Replace the editable card with the updated blog card
+                editableCard.replaceWith(updatedBlogCard);
+            });
+
+            // Event listener for the "Cancel" button in the editable card
+            const cancelButton = editableCard.querySelector('.cancel-blog');
+            cancelButton.addEventListener('click', () => {
+                // Replace the editable card with the original blog card
+                editableCard.replaceWith(blogCard);
+            });
+        }
+    });
+}
