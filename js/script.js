@@ -81,7 +81,7 @@ const addBlog = (blog, parent) => {
 const blogList = document.getElementById("blog-list");
 
 const fetchBlogs = () => {
-    const blogsURI = '/data/blogs.json'; // Replace with the actual JSON file path.
+    const blogsURI = '../data/blogs.json'; // Replace with the actual JSON file path.
     const xhr = new XMLHttpRequest();
     xhr.open('GET', blogsURI);
     xhr.addEventListener('load', function () {
