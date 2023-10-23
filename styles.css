@@ -28,7 +28,12 @@ button {
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
+button.update-blog:hover {
+    background-color: #0050a5;
+}
+
 
 button:hover {
     background-color: #0050a5;
@@ -74,6 +79,7 @@ h2 {
 p {
     font-size: 16px;
     margin-bottom: 15px;
+    text-align: justify;
 }
 
 /* Style the title and update button in a single line */
@@ -98,6 +104,8 @@ button.update-blog {
 /* Style the author and date section */
 .author-date {
     margin-top: 10px;
+    font-style: italic;
+    font-size: 14px;
 }
 
 /* Style the content section */
@@ -134,6 +142,28 @@ button.update-blog {
     align-self: flex-start;
 }
 
-input, textarea{
-    margin: 3px;
+input, textarea {
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #0074e4;
+}
+
+.blog-card.expanded {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    height: 70%;
+    width: 70%;
+}
+
+.blog-card.expanded .content {
+    max-height: none;
 }
