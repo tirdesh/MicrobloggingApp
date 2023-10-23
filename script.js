@@ -32,8 +32,17 @@ const addBlog = (blog, parent) => {
     const blogCard = document.createElement("article");
     blogCard.className = "blog-card";
 
+    blogList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('blog-card')) {
+            const blogCard = event.target;
+    
+            // Toggle the 'expanded' class on the clicked blog card
+            blogCard.classList.toggle("expanded");
+        }
+    });
+
     const div_header = document.createElement("div");
-    div_header.className = "title-update"
+    div_header.className = "title-update";
 
     const title = document.createElement("h2");
     title.textContent = blog.title;
@@ -92,32 +101,32 @@ const fetchBlogs = () => {
 fetchBlogs();
 
 
-// Add an event listener to the "Create Blog" button
-const createBlogButton = document.getElementById('create-blog-button');
-createBlogButton.addEventListener('click', () => {
+// Add an event listener to handle the "Create Blog" button
+const createBlogButton = document.getElementById("create-blog-button");
+createBlogButton.addEventListener("click", () => {
     createEditableBlogCard();
 });
 
 // Function to create an editable blog card
 const createEditableBlogCard = () => {
-    const blogList = document.getElementById('blog-list');
+    const blogList = document.getElementById("blog-list");
 
     // Create a new blog card with input fields
-    const editableBlogCard = document.createElement('article');
-    editableBlogCard.className = 'blog-card editable';
+    const editableBlogCard = document.createElement("article");
+    editableBlogCard.className = "blog-card editable";
 
-    const titleInput = document.createElement('input');
-    titleInput.placeholder = 'Title';
+    const titleInput = document.createElement("input");
+    titleInput.placeholder = "Title";
 
-    const contentInput = document.createElement('textarea');
-    contentInput.placeholder = 'Content';
+    const contentInput = document.createElement("textarea");
+    contentInput.placeholder = "Content";
 
-    const authorInput = document.createElement('input');
-    authorInput.placeholder = 'Author';
+    const authorInput = document.createElement("input");
+    authorInput.placeholder = "Author";
 
-    const saveButton = document.createElement('button');
-    saveButton.textContent = 'Save';
-    saveButton.addEventListener('click', () => {
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    saveButton.addEventListener("click", () => {
         // Create a new Blog object and add it to the page
         const newBlog = new Blog(titleInput.value, contentInput.value, authorInput.value);
         addBlog(newBlog, blogList);
@@ -125,9 +134,9 @@ const createEditableBlogCard = () => {
         blogList.removeChild(editableBlogCard);
     });
 
-    const cancelButton = document.createElement('button');
-    cancelButton.textContent = 'Cancel';
-    cancelButton.addEventListener('click', () => {
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
         // Remove the editable card without creating a new blog
         blogList.removeChild(editableBlogCard);
     });
@@ -143,7 +152,6 @@ const createEditableBlogCard = () => {
     blogList.appendChild(editableBlogCard);
 };
 
-
 function addUpdateButtonListeners() {
     blogList.addEventListener('click', (event) => {
         if (event.target.classList.contains('update-blog')) {
@@ -158,7 +166,7 @@ function addUpdateButtonListeners() {
 
             // Create an editable card with only the content and author fields editable
             const editableCard = document.createElement('div');
-            editableCard.className = 'editable-blog-card';
+            editableCard.className = "blog-card editable";
             editableCard.innerHTML = `
                 <h2>${title}</h2>
                 <input type="text" class="editable-author" placeholder="Edit Author" value="${author}">
