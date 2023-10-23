@@ -124,6 +124,10 @@ const createEditableBlogCard = () => {
     const authorInput = document.createElement("input");
     authorInput.placeholder = "Author";
 
+
+    const button_row = document.createElement("div");
+    button_row.className = "button-row";
+
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.addEventListener("click", () => {
@@ -141,12 +145,14 @@ const createEditableBlogCard = () => {
         blogList.removeChild(editableBlogCard);
     });
 
+    button_row.appendChild(saveButton);
+    button_row.appendChild(cancelButton);
+
     // Append input fields and buttons to the editable card
     editableBlogCard.appendChild(titleInput);
     editableBlogCard.appendChild(contentInput);
     editableBlogCard.appendChild(authorInput);
-    editableBlogCard.appendChild(saveButton);
-    editableBlogCard.appendChild(cancelButton);
+    editableBlogCard.appendChild(button_row);
 
     // Add the editable card to the blog list
     blogList.appendChild(editableBlogCard);
@@ -171,8 +177,10 @@ function addUpdateButtonListeners() {
                 <h2>${title}</h2>
                 <input type="text" class="editable-author" placeholder="Edit Author" value="${author}">
                 <textarea class="editable-content" placeholder="Edit Content">${content}</textarea>
+                <div class="button-row">
                 <button class="save-blog">Save</button>
                 <button class="cancel-blog">Cancel</button>
+                </div>
             `;
 
             // Replace the blog card with the editable card
