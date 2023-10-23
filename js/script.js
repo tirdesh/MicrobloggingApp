@@ -1,9 +1,12 @@
+// Define the Blog class
 class Blog {
+    // Private properties
     #title;
     #content;
     #author;
     #date;
 
+    // Constructor to initialize a Blog object
     constructor(title, content, author, date) {
         this.#title = title;
         this.#content = content;
@@ -11,6 +14,7 @@ class Blog {
         this.#date = date || new Date().toLocaleString();
     }
 
+    // Getter methods to access private properties
     get title() {
         return this.#title;
     }
@@ -28,21 +32,22 @@ class Blog {
     }
 }
 
+// Function to add a blog to the web page
 const addBlog = (blog, parent) => {
+    // Create a blog card element
     const blogCard = document.createElement("article");
     blogCard.className = "blog-card";
 
-    blogList.addEventListener('click', (event) => {
+    // Add a click event listener to toggle the 'expanded' class
+    blogCard.addEventListener('click', (event) => {
         if (event.target.classList.contains('blog-card')) {
-            const blogCard = event.target;
-    
-            // Toggle the 'expanded' class on the clicked blog card
             blogCard.classList.toggle("expanded");
         }
     });
 
-    const div_header = document.createElement("div");
-    div_header.className = "title-update";
+    // Create elements for the blog card
+    const divHeader = document.createElement("div");
+    divHeader.className = "title-update";
 
     const title = document.createElement("h2");
     title.textContent = blog.title;
@@ -51,8 +56,8 @@ const addBlog = (blog, parent) => {
     updateButton.className = "update-blog";
     updateButton.textContent = "Update";
 
-    div_header.appendChild(title);
-    div_header.appendChild(updateButton);
+    divHeader.appendChild(title);
+    divHeader.appendChild(updateButton);
 
     const authorDateDiv = document.createElement("div");
     authorDateDiv.className = "author-date";
@@ -70,16 +75,17 @@ const addBlog = (blog, parent) => {
 
     contentDiv.appendChild(content);
 
-    blogCard.appendChild(div_header);
+    // Add elements to the blog card
+    blogCard.appendChild(divHeader);
     blogCard.appendChild(authorDateDiv);
     blogCard.appendChild(contentDiv);
 
+    // Add the blog card to the parent element
     parent.appendChild(blogCard);
 }
 
-
+// Fetch and display blogs from a JSON file
 const blogList = document.getElementById("blog-list");
-
 const fetchBlogs = () => {
     const blogsURI = '../data/blogs.json'; // Replace with the actual JSON file path.
     const xhr = new XMLHttpRequest();
@@ -100,7 +106,6 @@ const fetchBlogs = () => {
 
 fetchBlogs();
 
-
 // Add an event listener to handle the "Create Blog" button
 const createBlogButton = document.getElementById("create-blog-button");
 createBlogButton.addEventListener("click", () => {
@@ -109,9 +114,7 @@ createBlogButton.addEventListener("click", () => {
 
 // Function to create an editable blog card
 const createEditableBlogCard = () => {
-    const blogList = document.getElementById("blog-list");
-
-    // Create a new blog card with input fields
+    // Create an editable blog card with input fields
     const editableBlogCard = document.createElement("article");
     editableBlogCard.className = "blog-card editable";
 
@@ -124,9 +127,8 @@ const createEditableBlogCard = () => {
     const authorInput = document.createElement("input");
     authorInput.placeholder = "Author";
 
-
-    const button_row = document.createElement("div");
-    button_row.className = "button-row";
+    const buttonRow = document.createElement("div");
+    buttonRow.className = "button-row";
 
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
@@ -145,19 +147,20 @@ const createEditableBlogCard = () => {
         blogList.removeChild(editableBlogCard);
     });
 
-    button_row.appendChild(saveButton);
-    button_row.appendChild(cancelButton);
+    buttonRow.appendChild(saveButton);
+    buttonRow.appendChild(cancelButton);
 
     // Append input fields and buttons to the editable card
     editableBlogCard.appendChild(titleInput);
     editableBlogCard.appendChild(contentInput);
     editableBlogCard.appendChild(authorInput);
-    editableBlogCard.appendChild(button_row);
+    editableBlogCard.appendChild(buttonRow);
 
     // Add the editable card to the blog list
     blogList.appendChild(editableBlogCard);
 };
 
+// Add event listeners to update and cancel buttons for editable blog cards
 function addUpdateButtonListeners() {
     blogList.addEventListener('click', (event) => {
         if (event.target.classList.contains('update-blog')) {
