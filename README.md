@@ -32,4 +32,4 @@ Create a simple micro-blogging application using JavaScript. Each blog should ha
 3. As this assignment is made mostly by using html no additional packages are required.
 
 # Final Output(How the page looks)
-<img width="1440" alt="image" src="https://github.com/info-6150-fall-2023/assignment-6-tirdesh-neu/assets/145165383/27c59193-fe56-441b-a4fd-1bd83e14761f">
+<img width="1440" alt="image" src="https://github.com/info-6150-fall-2023/assignment-6-tirdesh-neu/assets/145165383/b2de70b3-aaef-4691-98b7-03b08d408a25">
