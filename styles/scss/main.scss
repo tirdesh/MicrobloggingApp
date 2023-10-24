@@ -1,17 +1,11 @@
-// Variables
-$base-font: Arial, sans-serif;
-$primary-color: #0074e4;
-$hover-color: #0050a5;
-$background-color: #333;
-$text-color: #fff;
-$card-background: #f5f5f5;
-$border-color: #ddd;
-$card-hover-transform: scale(1.05);
-$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-$font-size-h2: 18px;
-$font-size-p: 16px;
-$font-size-author-date: 14px;
-$content-max-height: 3.5em;
+// Define variables
+$primary-color: #0074e4; // Primary color
+$button-hover-color: #0050a5; // Button hover color
+$base-font: Arial, sans-serif; // Base font family
+$title-font-size: 24px; // Font size for titles
+$button-padding: 10px 20px; // Padding for buttons
+$input-padding: 10px; // Padding for input fields
+$content-font-size: 18px; // Font size for content
 
 // Reset some default styles and set the base font family
 body, h1, p, button, div {
@@ -22,162 +16,138 @@ body, h1, p, button, div {
 
 // Style the header
 header {
-    background-color: $background-color;
-    color: $text-color;
+    background-color: #333;
+    color: #fff;
     padding: 10px;
     text-align: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-}
-
-h1 {
-    font-size: 24px;
-    margin: 0;
+    h1 {
+        font-size: $title-font-size; // Style the header title
+        margin: 0;
+    }
 }
 
 button {
-    background-color: $primary-color;
-    color: $text-color;
+    background-color: $primary-color; // Set button background color
+    color: #fff; // Set button text color
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: $button-padding; // Set button padding
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-}
-
-button.update-blog:hover {
-    background-color: $hover-color;
-}
-
-button:hover {
-    background-color: $hover-color;
+    &.update-blog:hover {
+        background-color: $button-hover-color; // Change button background color on hover
+    }
+    &:hover {
+        background-color: $button-hover-color; // Change button background color on hover
+    }
 }
 
 // Style the blog list container
 #blog-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 20px;
-    justify-content: center;
+    flex-direction: column; // Change to column layout
+    gap: 20px; // Add gap between blog cards
+    margin: 20px auto; // Center-align the container
+    max-width: 813px; // Set a maximum width for the container
 }
 
 // Style individual blog cards
 .blog-card {
-    background-color: $card-background;
-    border: 1px solid $border-color;
-    border-radius: 5px;
-    padding: 20px;
-    width: calc(33.33% - 20px);
+    background-color: #f5f5f5; // Set background color
+    border: 1px solid #ddd; // Add a border
+    border-radius: 5px; // Add border radius
+    padding: 20px; // Set padding
+    width: 100%; // Make the cards 100% width
     transition: transform 0.3s;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
-    &.expanded {
-        max-height: none;
-        transform: $card-hover-transform;
-        box-shadow: $box-shadow;
-        z-index: 1;
-        height: 70%;
-        width: 70%;
-        cursor: default; // Disable cursor on expanded card to avoid interactions
-        position: relative; // Added for stacking context
-        overflow: auto; // Allow scrolling if content exceeds the card height
-        // transition: transform 0.1s, box-shadow 0.3s, width 0.3s, height 0.3s;
-    }
-
     &:hover {
-        transform: $card-hover-transform;
+        transform: scale(1.05); // Enlarge on hover
     }
-
     h2 {
-        font-size: $font-size-h2;
+        font-size: $title-font-size; // Style the title
         margin-bottom: 10px;
     }
-
     p {
-        font-size: $font-size-p;
+        font-size: $content-font-size; // Style the content text
         margin-bottom: 15px;
         text-align: justify;
     }
-}
-
-// Style the title and update button in a single line
-.title-update {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    h2 {
-        margin: 0;
+    .title-update {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+            margin: 0;
+        }
+        .update-blog {
+            background-color: $primary-color; // Set update button color
+            color: #fff; // Set update button text color
+            border: none;
+            padding: $button-padding;
+            cursor: pointer;
+        }
     }
-
-    button.update-blog {
-        background-color: $primary-color;
-        color: $text-color;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
+    .author-date {
+        margin-top: 10px; // Add margin at the top
+        font-size: 14px; // Style author and date
     }
-}
-
-// Style the author and date section
-.author-date {
-    margin-top: 10px;
-    font-style: italic;
-    font-size: $font-size-author-date;
-}
-
-// Style the content section
-.content {
-    max-height: $content-max-height;
-    overflow: hidden;
-    position: relative;
-    overflow-y: auto;
-
-    &:hover {
-        overflow-y: scroll;
+    .content {
+        max-height: 0; // Set max height to 0 initially
+        overflow: hidden;
+        position: relative;
+        overflow-y: auto;
+        transition: max-height 0.2s ease-in-out;
+        &:hover {
+            overflow-y: scroll; // Enable scrolling on hover
+        }
     }
 }
-
-// Additional styles for expanded blog cards
 
 // Style the editable card buttons row
-.editable .button-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-
-    // Style the "Save" and "Cancel" buttons within the button row
+.editable {
+    .button-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px; // Add margin at the top
+    }
     .save-blog,
     .cancel-blog {
-        background-color: $primary-color;
-        color: $text-color;
+        background-color: $primary-color; // Set button background color
+        color: #fff; // Set button text color
         border: none;
-        padding: 10px 20px;
+        padding: $button-padding; // Set button padding
         cursor: pointer;
         align-self: flex-start;
     }
 }
 
-// Input and textarea styles
 input, textarea {
     margin: 5px 0;
-    padding: 10px;
-    border: 1px solid $border-color;
-    border-radius: 3px;
+    padding: $input-padding; // Set input and textarea padding
+    border: 1px solid #ccc; // Add a border
+    border-radius: 3px; // Add border radius
     font-family: $base-font;
     font-size: 14px;
-
     &:focus {
-        border-color: $primary-color;
+        border-color: $primary-color; // Change border color on focus
     }
 }
 
-.blog-card.expanded .content {
-    max-height: none;
+// Additional styles for expanded blog cards
+.blog-card.expanded {
+    transform: scale(1.05); // Enlarge when expanded
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Add box shadow
+    margin-top: 20px; // Add margin at the top
+    margin-bottom: 20px; // Add margin at the bottom
+    .content {
+        max-height: fit-content; // Expand to fit content
+        transition: max-height 0.2s ease-in-out;
+    }
 }

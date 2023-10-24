@@ -1,0 +1,169 @@
+/* Reset some default styles and set the base font family */
+body, h1, p, button, div {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+button {
+    background-color: #0074e4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+button.update-blog:hover {
+    background-color: #0050a5;
+}
+
+
+button:hover {
+    background-color: #0050a5;
+}
+
+/* Style the blog list container */
+#blog-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px;
+    justify-content: center;
+}
+
+/* Style individual blog cards */
+.blog-card {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(33.33% - 20px);
+    transition: transform 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.blog-card.expanded {
+    max-height: none;
+    transform: scale(1.05);
+}
+
+.blog-card:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Style the title and update button in a single line */
+.title-update {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    margin: 0;
+}
+
+button.update-blog {
+    background-color: #0074e4;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Style the author and date section */
+.author-date {
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* Style the content section */
+.content {
+    max-height: 0;
+    overflow: hidden;
+    position: relative;
+    overflow-y: auto; 
+}
+
+.content:hover {
+    overflow-y: scroll;
+}
+
+/* Additional styles for expanded blog cards */
+
+
+/* Style the editable card buttons row */
+.editable .button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Style the "Save" and "Cancel" buttons within the button row */
+.editable .save-blog,
+.editable .cancel-blog {
+    background-color: #0074e4;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+input, textarea {
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #0074e4;
+}
+
+.blog-card.expanded {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    height: 70%;
+    width: 70%;
+}
+
+.blog-card.expanded .content {
+    max-height: fit-content;
+}

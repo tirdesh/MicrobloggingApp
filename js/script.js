@@ -38,13 +38,6 @@ const addBlog = (blog, parent) => {
     const blogCard = document.createElement("article");
     blogCard.className = "blog-card";
 
-    // Add a click event listener to toggle the 'expanded' class
-    blogCard.addEventListener('click', (event) => {
-        if (event.target.classList.contains('blog-card')) {
-            blogCard.classList.toggle("expanded");
-        }
-    });
-
     // Create elements for the blog card
     const divHeader = document.createElement("div");
     divHeader.className = "title-update";
@@ -244,3 +237,10 @@ function addUpdateButtonListeners() {
         }
     });
 }
+
+blogList.addEventListener('click', (event) => {
+    const blogCard = event.target.closest('.blog-card');
+    if (blogCard) {
+        blogCard.classList.toggle("expanded");
+    }
+});

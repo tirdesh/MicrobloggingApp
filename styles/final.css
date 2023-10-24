@@ -10,11 +10,10 @@ header {
   padding: 10px;
   text-align: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
-
-h1 {
+header h1 {
   font-size: 24px;
   margin: 0;
 }
@@ -28,21 +27,19 @@ button {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
-
 button.update-blog:hover {
   background-color: #0050a5;
 }
-
 button:hover {
   background-color: #0050a5;
 }
 
 #blog-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 20px;
-  margin: 20px;
-  justify-content: center;
+  margin: 20px auto;
+  max-width: 813px;
 }
 
 .blog-card {
@@ -50,66 +47,52 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
-  width: calc(33.33% - 20px);
+  width: 100%;
   transition: transform 0.3s;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.blog-card.expanded {
-  max-height: none;
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  height: 70%;
-  width: 70%;
-  cursor: default;
-  position: relative;
-  overflow: auto;
-}
 .blog-card:hover {
   transform: scale(1.05);
 }
 .blog-card h2 {
-  font-size: 18px;
+  font-size: 24px;
   margin-bottom: 10px;
 }
 .blog-card p {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 15px;
   text-align: justify;
 }
-
-.title-update {
+.blog-card .title-update {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.title-update h2 {
+.blog-card .title-update h2 {
   margin: 0;
 }
-.title-update button.update-blog {
+.blog-card .title-update .update-blog {
   background-color: #0074e4;
   color: #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
 }
-
-.author-date {
+.blog-card .author-date {
   margin-top: 10px;
-  font-style: italic;
   font-size: 14px;
 }
-
-.content {
-  max-height: 3.5em;
+.blog-card .content {
+  max-height: 0;
   overflow: hidden;
   position: relative;
   overflow-y: auto;
+  transition: max-height 0.2s ease-in-out;
 }
-.content:hover {
+.blog-card .content:hover {
   overflow-y: scroll;
 }
 
@@ -119,8 +102,8 @@ button:hover {
   align-items: center;
   margin-top: 10px;
 }
-.editable .button-row .save-blog,
-.editable .button-row .cancel-blog {
+.editable .save-blog,
+.editable .cancel-blog {
   background-color: #0074e4;
   color: #fff;
   border: none;
@@ -132,7 +115,7 @@ button:hover {
 input, textarea {
   margin: 5px 0;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 3px;
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -141,8 +124,15 @@ input:focus, textarea:focus {
   border-color: #0074e4;
 }
 
+.blog-card.expanded {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .blog-card.expanded .content {
-  max-height: none;
+  max-height: fit-content;
+  transition: max-height 0.2s ease-in-out;
 }
 
 /*# sourceMappingURL=final.css.map */
