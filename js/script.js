@@ -54,7 +54,7 @@ const addBlog = (blog, parent) => {
 
     const updateButton = document.createElement("button");
     updateButton.className = "update-blog";
-    updateButton.textContent = "Update";
+    updateButton.textContent = "Update Blog";
 
     divHeader.appendChild(title);
     divHeader.appendChild(updateButton);
@@ -110,6 +110,8 @@ fetchBlogs();
 const createBlogButton = document.getElementById("create-blog-button");
 createBlogButton.addEventListener("click", () => {
     createEditableBlogCard();
+    createBlogButton.disabled = true; // Disable the button
+    createBlogButton.title = "Button is disabled. Complete or cancel the current blog creation.";
 });
 
 // Function to create an editable blog card
@@ -134,10 +136,20 @@ const createEditableBlogCard = () => {
     saveButton.textContent = "Save";
     saveButton.addEventListener("click", () => {
         // Create a new Blog object and add it to the page
-        const newBlog = new Blog(titleInput.value, contentInput.value, authorInput.value);
-        addBlog(newBlog, blogList);
-        // Remove the editable card
-        blogList.removeChild(editableBlogCard);
+        const title = titleInput.value;
+        const content = contentInput.value;
+        const author = authorInput.value;
+        if(title.trim().length > 0 && content.trim().length > 0 && author.trim().length > 0){
+            const newBlog = new Blog(titleInput.value, contentInput.value, authorInput.value);
+            addBlog(newBlog, blogList);
+            // Remove the editable card
+            blogList.removeChild(editableBlogCard);
+            createBlogButton.disabled = false; // Enable the button
+            createBlogButton.title = "";
+        }
+        else{
+            alert("Fields cannot be empty.")
+        }
     });
 
     const cancelButton = document.createElement("button");
@@ -145,6 +157,8 @@ const createEditableBlogCard = () => {
     cancelButton.addEventListener("click", () => {
         // Remove the editable card without creating a new blog
         blogList.removeChild(editableBlogCard);
+        createBlogButton.disabled = false; // Enable the button
+        createBlogButton.title = "";
     });
 
     buttonRow.appendChild(saveButton);
@@ -195,25 +209,30 @@ function addUpdateButtonListeners() {
                 // Retrieve the updated values
                 const updatedAuthor = editableCard.querySelector('.editable-author').value;
                 const updatedContent = editableCard.querySelector('.editable-content').value;
+                if(updatedAuthor.trim().length > 0 && updatedContent.trim().length > 0){
+                    // Create a new blog card with the updated values
+                    const updatedBlogCard = document.createElement('article');
+                    updatedBlogCard.className = 'blog-card';
+                    updatedBlogCard.innerHTML = `
+                        <div class="title-update">
+                            <h2>${title}</h2>
+                            <button class="update-blog">Update Blog</button>
+                        </div>
+                        <div class="author-date">
+                            <p>${updatedAuthor} | ${authorDate[1]}</p>
+                        </div>
+                        <div class="content">
+                            <p>${updatedContent}</p>
+                        </div>
+                    `;
 
-                // Create a new blog card with the updated values
-                const updatedBlogCard = document.createElement('article');
-                updatedBlogCard.className = 'blog-card';
-                updatedBlogCard.innerHTML = `
-                    <div class="title-update">
-                        <h2>${title}</h2>
-                        <button class="update-blog">Update</button>
-                    </div>
-                    <div class="author-date">
-                        <p>${updatedAuthor} | ${authorDate[1]}</p>
-                    </div>
-                    <div class="content">
-                        <p>${updatedContent}</p>
-                    </div>
-                `;
+                    // Replace the editable card with the updated blog card
+                    editableCard.replaceWith(updatedBlogCard);
+                }
+                else{
+                    alert("Fields cannot be empty.")
+                }
 
-                // Replace the editable card with the updated blog card
-                editableCard.replaceWith(updatedBlogCard);
             });
 
             // Event listener for the "Cancel" button in the editable card
