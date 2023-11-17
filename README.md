@@ -1,5 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/MqXF68Ca)
-# Assignment Description
 ## **JS Microblogging app**
 Create a simple micro-blogging application using JavaScript. Each blog should have a title, content, author, and creation date.
 
@@ -32,4 +30,4 @@ Create a simple micro-blogging application using JavaScript. Each blog should ha
 3. As this assignment is made mostly by using html no additional packages are required.
 
 # Final Output(How the page looks)
-<img width="1440" alt="image" src="https://github.com/info-6150-fall-2023/assignment-6-tirdesh-neu/assets/145165383/b2de70b3-aaef-4691-98b7-03b08d408a25">
+![image](https://github.com/tirdesh/MicrobloggingApp/assets/71664201/0b27d4d8-be99-45cc-9fa0-661b92665687)
